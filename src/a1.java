@@ -4,52 +4,34 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class a1 {
-    public static void mergeSort(int[] arrayList,int[] C,int p1, int p2)
+    public static int mergeSort(int[] arrayList,int[] C,int p1, int p2)
     {
-        if(p2>p1)
+        int n=0;
+        if(p2==p1)
+            return 0;
+        else if(p2>p1)
         {
-            mergeSort(arrayList,C, p1, (p1 + p2) / 2);
-            int t=0;
-            while(t<10)
-            {
-                System.out.println(arrayList[t]+" "+ C[t]);
-
-                t++;
-
-            }
-            System.out.println("Hello");
-            mergeSort(arrayList,C, (p1 + p2) / 2  +  1, p2);
-            t=0;
-            while(t<10)
-            {
-                System.out.println(arrayList[t]+" "+ C[t]);
-
-                t++;
-
-            }
-            System.out.println("Hello");
-            merge(arrayList,C, p1, (p1 + p2) / 2, p2);
-            t=0;
-            while(t<10)
-            {
-                System.out.println(arrayList[t]+" "+ C[t]);
-
-                t++;
-
-            }
-            System.out.println("Hello");
+            n+=mergeSort(arrayList,C, p1, (p1 + p2) / 2);
+            //System.out.println(n);
+            n+=mergeSort(arrayList,C, (p1 + p2) / 2  +  1, p2);
+            //System.out.println(n);
+            n+=merge(arrayList,C, p1, (p1 + p2) / 2, p2);
+            //System.out.println(n);
+            //System.out.println("Hello");
+            return n;
         }
 
-
+        return n;
 
     }
-    public static void merge(int[] A,int[] C, int l , int m , int r )
+    public static int merge(int[] A,int[] C, int l , int m , int r )
     {
+        int n=0;
         int k=l;
         int i=l,j=m+1;
         while(i<=m&&j<=r)
         {
-            if(A[i]<A[j])
+            if(A[i]<=A[j])
             {
                 C[k]=A[i];
                 k++;
@@ -59,6 +41,7 @@ public class a1 {
             else
             {
 
+                n+=m-i+1;
                 C[k]=A[j];
                 k++;
                 j++;
@@ -95,7 +78,7 @@ public class a1 {
             i++;
 
         }
-
+        return n;
 
     }
     public static void main(String[] args) {
@@ -127,13 +110,13 @@ public class a1 {
                 ex.printStackTrace();
             }
         }
-        int[] arrayList1={32,12,4,6,23,1,4,6,42,24};
+        int[] arrayList1={1,2 ,3 ,4 ,5 ,7, 6 ,8, 9,8};
         int[] C1=new int[arrayList1.length];
-        mergeSort(arrayList1,C1,0,arrayList1.length-1);
+        System.out.println(mergeSort(arrayList1,C1,0,arrayList1.length-1));
         int[] arrayList2={12,23,34,45,48,2,9,24,36,47};
         //merge(arrayList2,C1,0,4,9);
         int t=0;
-        while(t<10)
+        while(t<arrayList1.length)
         {
             System.out.println(arrayList1[t]);
             t++;
